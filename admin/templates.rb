@@ -11,7 +11,7 @@ ActiveAdmin.register Goldencobra::Template, as: "Template" do
       link_to(t.articletypes.count, "/admin/articletypes?q%5Barticletype_templates_template_id_eq%5D=#{t.id}")
     end
     column :articles do |t|
-      t.articletypes.map(&:articles).flatten.uniq.count
+      Goldencobra::Article.where(template_file: t.layout_file_name).count
     end
     actions
   end
